@@ -9,7 +9,7 @@ The primary goal of this repository is to provide a comprehensive set of solutio
 ## Contributing
 Contributions are welcome! If you have a solution or improvement, please submit a pull request. I code mainly in Python, so I'll focus on Python solutions. In general, it's also the only language for which Isograd always provides a solution (seriously, who does coding challenges in COBOL?).
 
-# Challenges
+## Challenges
 1. [Challenge Crédit Agricole 2024](/Challenge%20de%20Code%20Crédit%20Agricole%202025.py) Complet 
 2. [Concours Euro Information 2024](/Concours%20Euro%20Information%202024.py) Complet 
 3. [Matchup 2024](Matchup%202024.py) round 1 - 3
