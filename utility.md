@@ -46,6 +46,8 @@ for i in range(l):
 ```
 
 Algorithme de recherche en largeur / Breadth First Search, c'est l'algo de parcours de graph le plus courant pour trouver le chemin minimal.
+* Entrées: un graph / l'index du sommet de départ
+* Retour: un dictionnaire avec la distance par rapport au départ, un dictionnaire avec l'index du noeud précédént.
 ```Python
 from collections import deque
 
@@ -63,3 +65,58 @@ def bfs(graph, start):
     return distance, previous
 ```
 
+Même Algo mais avec une liste de index pour les différents sommets de départ.
+```Python
+from collections import deque
+
+def bfs_multi(graph, start_nodes):
+    # Breadth First Search
+    # graph is an adjacency list
+    # start_nodes is a list of node index 
+    distance = {node: 0 for node in start_nodes}
+    previous = {node: None for node in start_nodes}
+    queue = deque(start_nodes)
+    while queue:
+        v = queue.popleft()
+        for u in graph[v]:
+            if u not in distance:
+                distance[u] = distance[v] + 1
+                previous[u] = v
+                queue.append(u)
+    return distance, previous
+```
+
+# Grille 2D
+
+Ce code implémente une recherche en largeur (Breadth First Search, BFS) sur un cadrillage réguilier. 
+* Entrée grid, la matrice 2D representant le cadrillage.
+* Retour, les dictionnaires distance et previous.
+
+```Python
+"""
+Breadth First Search
+in a square grid
+"""
+from collections import deque
+
+def bfs_grid(grid, start_nodes):
+    # Breadth First Search on square grid
+    distance = {start_node: 0 for start_node in start_nodes}
+    previous = {start_node: None for start_node in start_nodes}
+    queue = deque(start_nodes)
+    h, w = len(grid), len(grid[0])
+
+    # Directions for neighbors (right, left, down, up)
+    directions = ((0, 1), (0, -1), (1, 0), (-1, 0))
+    while queue:
+        x, y = queue.popleft()
+        for dx, dy in directions:
+            nx, ny = x + dx, y + dy
+            if (nx, ny) in distance:
+                continue
+            if 0 <= ny < h and 0 <= nx < w:
+                distance[(nx, ny)] = distance[(x, y)] + 1
+                previous[(nx, ny)] = (x, y)
+                queue.append((nx, ny))
+    return distance, previous
+```
