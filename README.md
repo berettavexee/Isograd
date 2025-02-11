@@ -14,6 +14,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 But honestly, do what you want with it.
 
 # Challenges
-1. [Challenge Crédit Agricole 2024](/Challenge de Code Crédit Agricole 2025.py)
-2. [Concours Euro Information 2024](/Concours Euro Information 2024.py)
-3. [Matchup 2024](/Matchup 2024.py)
+1. [Challenge Crédit Agricole 2024](/Challenge_de_Code_Crédit_Agricole20_25.py)
+2. [Concours Euro Information 2024](/Concours_Euro_Information_2024.py)
+3. [Matchup 2024](/Matchup_2024.py)
