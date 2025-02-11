@@ -38,11 +38,10 @@ On importe les bibliothéques standards defaultdict et deque. Elles nous font ga
 ```Python 
 from collections import defaultdict, deque 
 
-adjacencyList = defaultdict(list)
-for i in range(l):
-    u, v = [int(j) for j in input().split()]
-    adjacencyList[u].append(v)
-    adjacencyList[v].append(u)
+g = defaultdict(list)
+for u, v in data:
+    g[u].append(v)
+    g[v].append(u)
 ```
 
 Algorithme de recherche en largeur / Breadth First Search, c'est l'algo de parcours de graph le plus courant pour trouver le chemin minimal.
