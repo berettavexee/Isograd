@@ -16,6 +16,9 @@ Contributions are welcome! If you have a solution or improvement, please submit 
 4. [La Poste 2024](La%20Poste%202024.py) round 1 - 3
 5. [MDF 2014](MDF%202014.py), round 4
 
+## Code gits and utilty functions
+
+[Utility functions](utility.md) in French (i am leazy).
 
 ## License
 This project is licensed under the MIT License because it needs a licence but honestly, do what you want with it.
