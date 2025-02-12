@@ -84,7 +84,8 @@ filtered_counts = [
 ]
 
 # Tri et affichage des 3 premiers (d'abord par count décroissant, puis par ordre alphabétique)
-sorted_words = sorted(filtered_counts, key=lambda item: (-item[0], item[1]))
+filtered_counts.sort(key=lambda item: (-item[0], item[1]))
 
-for count, word in sorted_words[:3]:
+# Affichage des 3 premiers
+for count, word in filtered_counts[:3]:
     print(count, word)
