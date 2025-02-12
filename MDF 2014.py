@@ -75,16 +75,16 @@ for i, text in enumerate(texts):
     for word in words:
         word_counts[word].add(i)  # On ajoute l'index du texte au set
 
-# Filtrage
+# Filtrage et transformation en liste de tuples (count, word)
 n = len(texts)
-filtered_counts = {
-    word: len(text_set)  # Count the number of texts
+filtered_counts = [
+    (len(text_set), word)
     for word, text_set in word_counts.items()
-    if len(text_set) < n  # Keep words that appear in fewer than n texts
-}
+    if len(text_set) < n
+]
 
-# Sort and output the top 3
-sorted_words = sorted(filtered_counts.items(), key=lambda item: (-item[1], item[0]))
+# Tri et affichage des 3 premiers (d'abord par count décroissant, puis par ordre alphabétique)
+sorted_words = sorted(filtered_counts, key=lambda item: (-item[0], item[1]))
 
-for word, count in sorted_words[:3]:
+for count, word in sorted_words[:3]:
     print(count, word)
