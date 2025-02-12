@@ -18,7 +18,7 @@ Contributions are welcome! If you have a solution or improvement, please submit 
 
 ## Code gits and utilty functions
 
-[Utility functions](utility.md) in French (i am lazy).
+[Utility code snippet](utility.md) in French (i am lazy).
 
 ## License
 This project is licensed under the MIT License because it needs a licence but honestly, do what you want with it.
