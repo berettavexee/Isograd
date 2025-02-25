@@ -158,3 +158,55 @@ if end in distance:
         print(*point)
 else:
     print(-1)
+
+"""
+https://www.isograd-testingservices.com/FR/solutions-challenges-de-code?cts_id=129
+Meilleur Dev de France Mai 2014
+MDF 2014 - 5 - Plongeon Artistique
+"""
+import sys
+
+def solve_knapsack(figures, capacity):
+    """Solves the knapsack problem with figure degradation and multiple usages.
+
+    Args:
+        figures: A list of tuples, where each tuple represents a figure 
+                 and contains its weight and initial value.
+        capacity: The maximum capacity of the knapsack.
+
+    Returns:
+        The maximum achievable value.
+    """
+    n = len(figures)
+    dp = [[0] * (capacity + 1) for _ in range(n + 1)]
+
+    for i in range(1, n + 1):
+        figure_weight, figure_value = figures[i - 1]
+        for w in range(capacity + 1):
+            max_value_at_weight = dp[i - 1][w]
+            usage_count = 1
+            current_value = figure_value
+            
+            while usage_count * figure_weight <= w and current_value > 0:
+                fig_score = usage_count * figure_value - usage_count * (usage_count - 1) // 2
+                max_value_at_weight = max(max_value_at_weight, dp[i - 1][w - usage_count * figure_weight] + fig_score)
+                current_value -= 1
+                usage_count += 1
+            dp[i][w] = max_value_at_weight
+
+    return dp[-1][-1]
+
+
+lines = []
+for line in sys.stdin:
+    lines.append(line.rstrip('\n'))
+
+T = int(lines.pop(0))  
+N = int(lines.pop(0))
+
+figures = []
+for line in lines:
+    figures.append(tuple(map(int, line.split())))
+
+result = solve_knapsack(figures, T)  # T seems to be the capacity in this case
+print(result)
