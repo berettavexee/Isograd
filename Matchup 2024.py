@@ -210,3 +210,91 @@ for line in lines:
 
 result = solve_knapsack(figures, T)  # T seems to be the capacity in this case
 print(result)
+
+
+"""
+https://www.isograd-testingservices.com/FR/solutions-challenges-de-code?cts_id=129
+Meilleur Dev de France Mai 2014
+MDF 2014 - 6 - Circuit de controle
+"""
+import sys
+from collections import defaultdict
+
+def log(message):
+    """Function to print messages to stderr."""
+    print(message, file=sys.stderr, flush=True)
+
+lines = []
+for line in sys.stdin:
+    lines.append(line.rstrip('\n'))
+
+B = int(lines.pop(0))
+S = int(lines.pop(0), 2) #binary 
+N = int(lines.pop(0))
+
+"""
+log(f'B: {B}')
+log(f'S: {S}')
+log(f'N: {N}')
+"""
+
+nodes = defaultdict(dict)
+
+# Initialisation des noeuds
+for i, op in enumerate(lines):
+    parts = op.split()
+    parts = [parts[0]] + [int(x) for x in parts[1:] if x != '-']
+    nodes[i]['type'] = parts[0]
+    if len(parts) == 4:
+        nodes[i]['inputs'] = parts[-2:]
+    if len(parts) == 3:
+        nodes[i]['inputs'] = parts[-1:]
+    nodes[i]['value'] = None
+
+nodes[N-1]['value'] = bin(S)[2:].zfill(B)
+
+# log(f'Noeuds: {nodes}')
+
+# Back-propagate
+for i in range(N-1, -1, -1):
+    operator = nodes[i]['type']
+    mask = (2 ** B - 1)
+    if nodes[i]['value'] != None:
+        # log(f'back node {i} : {nodes[i]}')
+        match operator:
+            case 'OUTPUT':
+                idx = nodes[i]['inputs'][0]
+                nodes[idx]['value'] = nodes[i]['value']
+            case 'NOT':
+                idx = nodes[i]['inputs'][0]
+                data = nodes[i]['value']
+                nodes[idx]['value'] = "".join('1' if bit == '0' else '0' for bit in data)
+            case 'LEFT_SHIFT':
+                idx = nodes[i]['inputs'][0]
+                nodes[idx]['value'] = nodes[i]['value'][1:] + '0'
+            case 'RIGHT_SHIFT':
+                idx = nodes[i]['inputs'][0]
+                nodes[idx]['value'] = '0' + nodes[i]['value'][:-1]
+            case 'AND':
+                idx_a, idx_b = nodes[i]['inputs']
+                nodes[idx_a]['value'] = nodes[i]['value']
+                nodes[idx_b]['value'] = nodes[i]['value']
+            case 'OR':
+                idx_a, idx_b = nodes[i]['inputs']
+                nodes[idx_a]['value'] = nodes[i]['value']
+                nodes[idx_b]['value'] = nodes[i]['value']
+            case 'XOR':
+                idx_a, idx_b = nodes[i]['inputs']
+                nodes[idx_a]['value'] = nodes[i]['value']
+                nodes[idx_b]['value'] = bin(0)[2:].zfill(B)
+            case 'SUM':
+                idx_a, idx_b = nodes[i]['inputs']
+                nodes[idx_a]['value'] = nodes[i]['value']
+                nodes[idx_b]['value'] = bin(0)[2:].zfill(B)
+            
+
+log(f'Noeuds 2: {nodes}')
+
+for i in range(N):
+    if nodes[i]['type'] == 'INPUT':
+        print(nodes[i]['value'])
