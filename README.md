@@ -15,7 +15,7 @@ Contributions are welcome! If you have a solution or improvement, please submit 
 3. [Matchup 2024](Matchup%202024.py) round 1 - 5 + partial solution for 6
 4. [La Poste 2024](La%20Poste%202024.py) round 1 - 3
 5. [MDF 2014](MDF%202014.py), round 4 - 5
-6. [Challenge de code Crédit Agricole 2025](Challenge%20de%20code%20CA%202025.py), Qaulification 1 and 2 (optiminisation) 
+6. [Challenge de code Crédit Agricole 2025](Challenge%20de%20code%20CA%202025.py), Qualification 1 and 2 (optiminisation) 
 
 ## Code gits, snippet and utilty functions
 
