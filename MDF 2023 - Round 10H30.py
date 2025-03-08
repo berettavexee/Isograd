@@ -56,40 +56,54 @@ print(d)
 https://www.isograd-testingservices.com/FR/solutions-challenges-de-code?cts_id=99
 MDF 2023 - Round 3  - Round 10H30 - Pizza - 3
 """
-from collections import deque
+import sys
 
-def algo(image):
-    n = len(image)
-    visited = [[False] * n for _ in range(n)]
-    compteur_parts = 0
+def compter_parts_pizza(pizza):
+    """
+    Compte le nombre de parts de pizza dans une image en noir et blanc.
 
-    def is_valid(line, col):
-        return 0 <= line < n and 0 <= col < n
+    Args:
+        pizza: Une liste de chaînes de caractères représentant l'image de la pizza.
 
-    def bfs(line, col):
-        queue = deque([(line, col)])
-        visited[line][col] = True
+    Returns:
+        Le nombre de parts de pizza.
+    """
+
+    n = len(pizza)
+    visite = [[False] * n for _ in range(n)]
+    nombre_parts = 0
+
+    def est_valide(x, y):
+        return 0 <= x < n and 0 <= y < n
+
+    def bfs(x, y):
+        queue = [(x, y)]
+        visite[x][y] = True
+
+        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
 
         while queue:
-            line, col = queue.popleft()
-            for dline, dcol in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
-                nline, ncol = line + dline, col + dcol
-                if is_valid(nline, ncol) and image[nline][ncol] == '#' and not visited[nline][ncol]:
-                    queue.append((nline, ncol))
-                    visited[nline][ncol] = True
+            cx, cy = queue.pop(0)
+
+            for dx, dy in directions:
+                nx, ny = cx + dx, cy + dy
+
+                if est_valide(nx, ny) and pizza[nx][ny] == '#' and not visite[nx][ny]:
+                    queue.append((nx, ny))
+                    visite[nx][ny] = True
 
     for i in range(n):
         for j in range(n):
-            if image[i][j] == '#' and not visited[i][j]:
+            if pizza[i][j] == '#' and not visite[i][j]:
                 bfs(i, j)
-                compteur_parts += 1
+                nombre_parts += 1
 
-    return compteur_parts
-
+    return nombre_parts
+  
 # Lecture de l'entrée
 n = int(input())
 image = [input() for _ in range(n)]
 
 # Calcul et affichage du résultat
-resultat = algo(image)
+resultat = compter_parts_pizza(image)
 print(resultat)
